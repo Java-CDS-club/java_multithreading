@@ -5,12 +5,15 @@ import java.util.stream.Collectors;
 
 import com.kokhrimenko.trainings.java.multithreading.intro.payload.Payload;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * To run a payload in multithreading mode.
  * 
  * @author kokhrime
  *
  */
+@Slf4j
 public class ParallelRun implements RunMe {
 
 	public void runMe(List<Payload> payloads) {
@@ -28,7 +31,7 @@ public class ParallelRun implements RunMe {
 			try {
 				thread.join();
 			} catch (InterruptedException e) {
-				System.err.println(String.format("Thread with id: %s was interrupted. Error: %s", thread.getName(), e));
+				log.error("Thread with id: {} was interrupted. Error: {}", thread.getName(), e);
 			}
 		});
 	}

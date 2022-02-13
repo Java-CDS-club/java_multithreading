@@ -1,11 +1,14 @@
 package com.kokhrimenko.trainings.java.multithreading.topic1_thread_and_runnable;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Example when {@link Thread} in {@link Thread.State.BLOCKED}.
  *
  * @author kokhrime
  *
  */
+@Slf4j
 public class ThreadInBlockedStateExample {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -17,7 +20,7 @@ public class ThreadInBlockedStateExample {
 
 		Thread.sleep(1000);
 
-		System.out.println("Thread t2 in state: " + t2.getState());
+		log.info("Thread t2 in state: {}", t2.getState());
 		System.exit(0);
 	}
 
@@ -31,7 +34,7 @@ public class ThreadInBlockedStateExample {
 			try {
 				Thread.sleep(5_000);
 			} catch (InterruptedException e) {
-				System.err.println("Something wrong happened. Error: " + e);
+				log.error("Something wrong happened. Error: {}", e);
 			}
 		}
 	}

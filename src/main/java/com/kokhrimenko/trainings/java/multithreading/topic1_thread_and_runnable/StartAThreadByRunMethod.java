@@ -1,32 +1,35 @@
 package com.kokhrimenko.trainings.java.multithreading.topic1_thread_and_runnable;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * What is going to be happen, if we call {@link Thread.run()} method.
  *
  * @author kokhrime
  *
  */
+@Slf4j
 public class StartAThreadByRunMethod {
 
 	public static void main(String[] args) {
-		System.out.println("Before calling Thread.run() method");
+		log.info("Before calling Thread.run() method");
 		
 		new Thread(new NewThread()).run();
 
-		System.out.println("After calling Thread.run() method");
+		log.info("After calling Thread.run() method");
 	}
 	
 	private static class NewThread implements Runnable {
 
 		@Override
 		public void run() {
-			System.out.println("Start of a new method logic inside a thread");
+			log.info("Start of a new method logic inside a thread");
 			try {
 				Thread.sleep(2_000);
 			} catch (InterruptedException e) {
-				System.err.println("Something wrong happened. Error: " + e);
+				log.error("Something wrong happened. Error: {}", e);
 			}
-			System.out.println("End of a new method logic inside a thread");
+			log.info("End of a new method logic inside a thread");
 		}
 
 	}

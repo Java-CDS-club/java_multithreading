@@ -12,6 +12,9 @@ import com.kokhrimenko.trainings.java.multithreading.intro.payload.PayloadImpl;
 import com.kokhrimenko.trainings.java.multithreading.intro.run.RunFactory;
 import com.kokhrimenko.trainings.java.multithreading.intro.run.RunFactory.Mode;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Introdaction {
 	private static final int PAYLOAD_COUNT = 20;
 	private static final long DEFAULT_TIMEOUT = 1;
@@ -25,7 +28,7 @@ public class Introdaction {
 
         Instant start = Instant.now();
         RunFactory.getRunMe(mode).runMe(payloads);
-        System.out.println(String.format("To do all payloads took: %s seconds", Duration.between(start, Instant.now()).toSeconds()));
+        log.info("To do all payloads took: {} seconds", Duration.between(start, Instant.now()).toSeconds());
     }
     
 }
