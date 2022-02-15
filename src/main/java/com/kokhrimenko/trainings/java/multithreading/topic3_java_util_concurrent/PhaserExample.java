@@ -15,11 +15,18 @@ public class PhaserExample {
 
 	public static void main(String[] args) throws InterruptedException {
 		final Phaser phaser = new Phaser(1);
+		log.info("We are currently in phase: {}", phaser.getPhase());
 
 		new MyThread(phaser).start();
 		new MyThread(phaser).start();
 		new MyThread(phaser).start();
 		phaser.arriveAndAwaitAdvance();
+
+		log.info("New phase: {} started", phaser.getPhase());
+		new MyThread(phaser).start();
+		new MyThread(phaser).start();
+		phaser.arriveAndAwaitAdvance();
+
 		phaser.arriveAndDeregister();
 	}
 	
@@ -37,12 +44,11 @@ public class PhaserExample {
 			log.info("Thread {} waiting for others to reach this stage", getName());
 			try {
 				Thread.sleep(1_000);
+				log.info("Thread {} finished it long running work", getName());
+				phaser.arriveAndAwaitAdvance();
 			} catch (InterruptedException e) {
 				log.error("Thread: {}, something went wrong. Error: {}", getName(), e);
 			}
-			log.info("Thread {} finished it long running work", getName());
-			phaser.arriveAndAwaitAdvance();
-			log.info("Thread {} proceeding in phase {}", getName(), phaser.getPhase());
 			phaser.arriveAndDeregister();
 		}
 	}
