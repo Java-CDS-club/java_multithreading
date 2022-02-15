@@ -22,10 +22,12 @@ public class PhaserExample {
 		new MyThread(phaser).start();
 		phaser.arriveAndAwaitAdvance();
 
-		log.info("New phase: {} started", phaser.getPhase());
+		final int nextPhase = phaser.getPhase();
+		log.info("New phase: {} started", nextPhase);
 		new MyThread(phaser).start();
 		new MyThread(phaser).start();
 		phaser.arriveAndAwaitAdvance();
+		log.info("Phase: {} completed", nextPhase);
 
 		phaser.arriveAndDeregister();
 	}
