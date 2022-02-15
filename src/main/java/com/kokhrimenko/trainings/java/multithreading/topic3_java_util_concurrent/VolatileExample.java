@@ -9,24 +9,26 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class VolatileExample {
-	private static int number;
-	private static boolean ready;
+public class VolatileExample extends Thread {
+	private /*volatile*/ boolean keepRunning = true;
 
-	private static class Reader extends Thread {
-		@Override
-		public void run() {
-			while (!ready) {
-				Thread.yield();
-			}
-
-			log.info("Number is: {}", number);
+	@Override
+	public void run() {
+		long count = 0;
+		while (keepRunning) {
+			count++;
 		}
+
+		log.info("Thread terminated: {}", count);
 	}
 
-	public static void main(String[] args) {
-		new Reader().start();
-		number = 42;
-		ready = true;
+	public static void main(String[] args) throws InterruptedException {
+		final VolatileExample volatileExample = new VolatileExample();
+		volatileExample.start();
+		Thread.sleep(1_000);
+		log.info("After sleeping in the main method");
+		volatileExample.keepRunning = false;
+		volatileExample.join();
+		log.info("keepRunning set to: " + volatileExample.keepRunning);
 	}
 }
