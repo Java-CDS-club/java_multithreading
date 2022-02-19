@@ -15,7 +15,7 @@ import com.kokhrimenko.trainings.java.multithreading.intro.run.RunFactory.Mode;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Introdaction {
+public class Introduction {
 	private static final int PAYLOAD_COUNT = 20;
 	private static final long DEFAULT_TIMEOUT = 1;
 
